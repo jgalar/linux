@@ -2187,7 +2187,8 @@ static int run_delayed_data_ref(struct btrfs_trans_handle *trans,
 	ins.type = BTRFS_EXTENT_ITEM_KEY;
 
 	ref = btrfs_delayed_node_to_data_ref(node);
-	trace_run_delayed_data_ref(trans->fs_info, node, ref, node->action);
+	trace_btrfs_run_delayed_data_ref(trans->fs_info, node, ref,
+					 node->action);
 
 	if (node->type == BTRFS_SHARED_DATA_REF_KEY)
 		parent = ref->parent;
@@ -2331,7 +2332,8 @@ static int run_delayed_tree_ref(struct btrfs_trans_handle *trans,
 	u64 ref_root = 0;
 
 	ref = btrfs_delayed_node_to_tree_ref(node);
-	trace_run_delayed_tree_ref(trans->fs_info, node, ref, node->action);
+	trace_btrfs_run_delayed_tree_ref(trans->fs_info, node, ref,
+					 node->action);
 
 	if (node->type == BTRFS_SHARED_BLOCK_REF_KEY)
 		parent = ref->parent;
@@ -2544,7 +2546,7 @@ static int cleanup_ref_head(struct btrfs_trans_handle *trans,
 
 	btrfs_cleanup_ref_head_accounting(fs_info, delayed_refs, head);
 
-	trace_run_delayed_ref_head(fs_info, head, 0);
+	trace_btrfs_run_delayed_ref_head(fs_info, head, 0);
 	btrfs_delayed_ref_unlock(head);
 	btrfs_put_delayed_ref_head(head);
 	return 0;
@@ -7838,7 +7840,7 @@ static noinline int find_free_extent(struct btrfs_fs_info *fs_info,
 	ins->objectid = 0;
 	ins->offset = 0;
 
-	trace_find_free_extent(fs_info, num_bytes, empty_size, flags);
+	trace_btrfs_find_free_extent(fs_info, num_bytes, empty_size, flags);
 
 	space_info = __find_space_info(fs_info, flags);
 	if (!space_info) {

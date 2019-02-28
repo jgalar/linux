@@ -646,7 +646,7 @@ add_delayed_ref_head(struct btrfs_trans_handle *trans,
 			qrecord_inserted = 1;
 	}
 
-	trace_add_delayed_ref_head(trans->fs_info, head_ref, action);
+	trace_btrfs_add_delayed_ref_head(trans->fs_info, head_ref, action);
 
 	existing = htree_insert(&delayed_refs->href_root,
 				&head_ref->href_node);
@@ -813,7 +813,7 @@ int btrfs_add_delayed_tree_ref(struct btrfs_trans_handle *trans,
 	 */
 	btrfs_update_delayed_refs_rsv(trans);
 
-	trace_add_delayed_tree_ref(fs_info, &ref->node, ref,
+	trace_btrfs_add_delayed_tree_ref(fs_info, &ref->node, ref,
 				   action == BTRFS_ADD_DELAYED_EXTENT ?
 				   BTRFS_ADD_DELAYED_REF : action);
 	if (ret > 0)
@@ -900,7 +900,7 @@ int btrfs_add_delayed_data_ref(struct btrfs_trans_handle *trans,
 	 */
 	btrfs_update_delayed_refs_rsv(trans);
 
-	trace_add_delayed_data_ref(trans->fs_info, &ref->node, ref,
+	trace_btrfs_add_delayed_data_ref(trans->fs_info, &ref->node, ref,
 				   action == BTRFS_ADD_DELAYED_EXTENT ?
 				   BTRFS_ADD_DELAYED_REF : action);
 	if (ret > 0)

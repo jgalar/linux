@@ -570,7 +570,7 @@ DECLARE_EVENT_CLASS(btrfs__writepage,
 		  (unsigned long)__entry->writeback_index)
 );
 
-DEFINE_EVENT(btrfs__writepage, __extent_writepage,
+DEFINE_EVENT(btrfs__writepage, btrfs__extent_writepage,
 
 	TP_PROTO(const struct page *page, const struct inode *inode,
 		 const struct writeback_control *wbc),
@@ -749,7 +749,7 @@ DECLARE_EVENT_CLASS(btrfs_delayed_tree_ref,
 		  __entry->seq)
 );
 
-DEFINE_EVENT(btrfs_delayed_tree_ref,  add_delayed_tree_ref,
+DEFINE_EVENT(btrfs_delayed_tree_ref,  btrfs_add_delayed_tree_ref,
 
 	TP_PROTO(const struct btrfs_fs_info *fs_info,
 		 const struct btrfs_delayed_ref_node *ref,
@@ -759,7 +759,7 @@ DEFINE_EVENT(btrfs_delayed_tree_ref,  add_delayed_tree_ref,
 	TP_ARGS(fs_info, ref, full_ref, action)
 );
 
-DEFINE_EVENT(btrfs_delayed_tree_ref,  run_delayed_tree_ref,
+DEFINE_EVENT(btrfs_delayed_tree_ref,  btrfs_run_delayed_tree_ref,
 
 	TP_PROTO(const struct btrfs_fs_info *fs_info,
 		 const struct btrfs_delayed_ref_node *ref,
@@ -816,7 +816,7 @@ DECLARE_EVENT_CLASS(btrfs_delayed_data_ref,
 		  __entry->seq)
 );
 
-DEFINE_EVENT(btrfs_delayed_data_ref,  add_delayed_data_ref,
+DEFINE_EVENT(btrfs_delayed_data_ref,  btrfs_add_delayed_data_ref,
 
 	TP_PROTO(const struct btrfs_fs_info *fs_info,
 		 const struct btrfs_delayed_ref_node *ref,
@@ -826,7 +826,7 @@ DEFINE_EVENT(btrfs_delayed_data_ref,  add_delayed_data_ref,
 	TP_ARGS(fs_info, ref, full_ref, action)
 );
 
-DEFINE_EVENT(btrfs_delayed_data_ref,  run_delayed_data_ref,
+DEFINE_EVENT(btrfs_delayed_data_ref,  btrfs_run_delayed_data_ref,
 
 	TP_PROTO(const struct btrfs_fs_info *fs_info,
 		 const struct btrfs_delayed_ref_node *ref,
@@ -865,7 +865,7 @@ DECLARE_EVENT_CLASS(btrfs_delayed_ref_head,
 		  __entry->is_data)
 );
 
-DEFINE_EVENT(btrfs_delayed_ref_head,  add_delayed_ref_head,
+DEFINE_EVENT(btrfs_delayed_ref_head,  btrfs_add_delayed_ref_head,
 
 	TP_PROTO(const struct btrfs_fs_info *fs_info,
 		 const struct btrfs_delayed_ref_head *head_ref,
@@ -874,7 +874,7 @@ DEFINE_EVENT(btrfs_delayed_ref_head,  add_delayed_ref_head,
 	TP_ARGS(fs_info, head_ref, action)
 );
 
-DEFINE_EVENT(btrfs_delayed_ref_head,  run_delayed_ref_head,
+DEFINE_EVENT(btrfs_delayed_ref_head,  btrfs_run_delayed_ref_head,
 
 	TP_PROTO(const struct btrfs_fs_info *fs_info,
 		 const struct btrfs_delayed_ref_head *head_ref,
@@ -1119,7 +1119,7 @@ DEFINE_EVENT(btrfs__reserved_extent,  btrfs_reserved_extent_free,
 	TP_ARGS(fs_info, start, len)
 );
 
-TRACE_EVENT(find_free_extent,
+TRACE_EVENT(btrfs_find_free_extent,
 
 	TP_PROTO(const struct btrfs_fs_info *fs_info, u64 num_bytes,
 		 u64 empty_size, u64 data),
@@ -1277,7 +1277,7 @@ TRACE_EVENT(btrfs_setup_cluster,
 );
 
 struct extent_state;
-TRACE_EVENT(alloc_extent_state,
+TRACE_EVENT(btrfs_alloc_extent_state,
 
 	TP_PROTO(const struct extent_state *state,
 		 gfp_t mask, unsigned long IP),
@@ -1300,7 +1300,7 @@ TRACE_EVENT(alloc_extent_state,
 		  show_gfp_flags(__entry->mask), (const void *)__entry->ip)
 );
 
-TRACE_EVENT(free_extent_state,
+TRACE_EVENT(btrfs_free_extent_state,
 
 	TP_PROTO(const struct extent_state *state, unsigned long IP),
 
@@ -1578,7 +1578,7 @@ DEFINE_EVENT(btrfs_qgroup_extent, btrfs_qgroup_trace_extent,
 	TP_ARGS(fs_info, rec)
 );
 
-TRACE_EVENT(qgroup_num_dirty_extents,
+TRACE_EVENT(btrfs_qgroup_num_dirty_extents,
 
 	TP_PROTO(const struct btrfs_fs_info *fs_info, u64 transid,
 		 u64 num_dirty_extents),
@@ -1632,7 +1632,7 @@ TRACE_EVENT(btrfs_qgroup_account_extent,
 		__entry->nr_new_roots)
 );
 
-TRACE_EVENT(qgroup_update_counters,
+TRACE_EVENT(btrfs_qgroup_update_counters,
 
 	TP_PROTO(const struct btrfs_fs_info *fs_info,
 		 struct btrfs_qgroup *qgroup,
@@ -1661,7 +1661,7 @@ TRACE_EVENT(qgroup_update_counters,
 		  __entry->cur_old_count, __entry->cur_new_count)
 );
 
-TRACE_EVENT(qgroup_update_reserve,
+TRACE_EVENT(btrfs_qgroup_update_reserve,
 
 	TP_PROTO(struct btrfs_fs_info *fs_info, struct btrfs_qgroup *qgroup,
 		 s64 diff, int type),
@@ -1686,7 +1686,7 @@ TRACE_EVENT(qgroup_update_reserve,
 		__entry->cur_reserved, __entry->diff)
 );
 
-TRACE_EVENT(qgroup_meta_reserve,
+TRACE_EVENT(btrfs_qgroup_meta_reserve,
 
 	TP_PROTO(struct btrfs_root *root, s64 diff, int type),
 
@@ -1708,7 +1708,7 @@ TRACE_EVENT(qgroup_meta_reserve,
 		show_qgroup_rsv_type(__entry->type), __entry->diff)
 );
 
-TRACE_EVENT(qgroup_meta_convert,
+TRACE_EVENT(btrfs_qgroup_meta_convert,
 
 	TP_PROTO(struct btrfs_root *root, s64 diff),
 
@@ -1732,7 +1732,7 @@ TRACE_EVENT(qgroup_meta_convert,
 		__entry->diff)
 );
 
-TRACE_EVENT(qgroup_meta_free_all_pertrans,
+TRACE_EVENT(btrfs_qgroup_meta_free_all_pertrans,
 
 	TP_PROTO(struct btrfs_root *root),
 
